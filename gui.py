@@ -18,16 +18,20 @@ def build_gui():
     result = tk.StringVar(value="𝜏 = ? s")
     tk.Label(root, textvariable=result, font=("Arial", 14)).grid(row=2, columnspan=2, pady=10)
 
+    v0 = tk.StringVar(value="99% V0 in ? s")
+    tk.Label(root, textvariable=v0, font=("Arial", 14)).grid(row=3, columnspan=2, pady=10)
+
     def calculate():
         try:
             R, C = float(r_entry.get()), float(c_entry.get())
             circuit = RCCircuit(R, C)
             circuit.save(db)
             result.set(f"𝜏 = {circuit.tau:.4g} s")
+            v0.set(f"99% V0 in {circuit.v0_time:.4g} s")
         except ValueError:
             messagebox.showerror("Error", "Enter numbers!!")
 
-    ttk.Button(root, text="Compute", command=calculate).grid(row=3, columnspan=2, pady=5)
+    ttk.Button(root, text="Compute", command=calculate).grid(row=4, columnspan=2, pady=5)
     root.mainloop()
 
 if __name__ == "__main__":
